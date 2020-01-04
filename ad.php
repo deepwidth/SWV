@@ -21,15 +21,16 @@
 		   <form action="ad.php" method="get">
 		    欢迎添加设备,device_id值不能相同<br/>
 		    device_id:<input type="text" name="device_id" value="100001"/>
+			show_name:<input type="text" name="show_name" value="Great device"/>
+			remark:<input type="text" name="remark" value="remark"/><br/>
 		 	serial_num:<input type="text" name="serial_num" value="100001"/>
 			net_address:<input type="text" name="net_address" value="100001"/>
 			connect_state:<input type="text" name="connect_state" value="1"/>
 			type:<input type="text" name="type" value="1"/><br/>
-			name:<input type="text" name="name" value="another device"/>
-			show_name:<input type="text" name="show_name" value="Great device"/>
+			name:<input type="text" name="name" value="another device"/><br/>
 			imgurl:<input type="text" name="imgurl"/>
 			assem_date:<input type="text" name="assem_date" value="2019-12-21 14:45:54"/>
-			d_pass:<input type="text" name="d_pass" value="passwdFromMaking"/>
+			d_pass:<input type="text" name="d_pass" value="passwdFromMaking"><br/>
 			access_ctrl:<input type="text" name="access_ctrl" value="0"/>
 		    <input type="submit" value="提交"/>
 		   </form>
@@ -39,6 +40,7 @@
 
 <?php
 $device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
+$remark = @$_GET['remark'] ? $_GET['remark'] : '';
 $serial_num = @$_GET['serial_num'] ? $_GET['serial_num'] : '';
 $net_address = @$_GET['net_address'] ? $_GET['net_address'] : '';
 $connect_state = @$_GET['connect_state'] ? $_GET['connect_state'] : '';
@@ -61,14 +63,15 @@ if($mysql_link) {
 	exit;
 }
 
-$user_query = "INSERT INTO device(device_id, serial_num, net_address, connect_state, type, name,
+$user_query = "INSERT INTO device(device_id, remark, serial_num, net_address, connect_state, type, name,
 						show_name, imgurl, assem_date, d_pass, access_ctrl) 
-				values('$device_id', '$serial_num', '$net_address', '$connect_state', '$type', '$name', '$show_name', '$imgurl',
+				values('$device_id', '$remark', '$serial_num', '$net_address', '$connect_state', '$type', '$name', '$show_name', '$imgurl',
 					'$assem_date', '$d_pass', '$access_ctrl');";
 if($_GET == null) {
 	exit;
 }
 $add_result = mysqli_query($mysql_link, $user_query);
+include_once 'addParams.php';
 if($add_result == FALSE) {
 	echo "add device failed";
 } else {

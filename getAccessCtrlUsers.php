@@ -2,7 +2,7 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
 
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
@@ -15,23 +15,14 @@ if($mysql_link) {
 }
 
 //main function execute
-$user_query = "SELECT u_phone, u_openid, u_img FROM user WHERE u_openid = '$openID';";
+$user_query = "SELECT u_openid, device_id, source, a_access, p_access, a_openid FROM user_device WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $user_query);
 
 $result = mysqli_fetch_assoc($query_result);
-if(empty($result)) {
-	$array_result = array(
-	'phone' => 0,
-	'openID' => 0,
-	'imgUrl' => 0
-	);
-} else {
-	$array_result = array(
-		'phone' => $result['u_phone'],
-		'openID' => $result['u_openid'],
-		'imgUrl' => $result['u_img']
-	);
-}
+do{
+	$array_result[] = $result;
+	$result = mysqli_fetch_assoc($query_result);
+}while(!empty($result));
 
 //output result
 exit(json_encode($array_result));
