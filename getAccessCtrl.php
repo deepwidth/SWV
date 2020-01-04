@@ -2,9 +2,9 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
-$cPassword = @$_GET['cpassword'] ? $_GET['cpassword'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
+$cPassword = @$_GET['cpassword'] ? $_GET['cpassword'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
 
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
@@ -24,11 +24,10 @@ $result = mysqli_fetch_assoc($query_result);
 if($result['c_pass'] == $cPassword) {
 	$alter_user_device = "UPDATE user_device SET p_access = 1 WHERE device_id = '$device_id' AND u_openid = '$openID';";
 	$alter_result = mysqli_query($mysql_link, $alter_user_device);
-	$array_result = ($alter_result == FALSE) ? array('result' => '0') : array('result' => '1');
+	($alter_result == FALSE) ? exit(json_encode($error)) : exit(json_encode($ok));
 } else {
-	$array_result = array('result' => '0');
+	exit(json_encode($error));
 }
 
 //output result
-exit(json_encode($array_result));
 ?>

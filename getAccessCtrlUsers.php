@@ -2,7 +2,7 @@
 
 @require_once 'config.php';
 //get params
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
 
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
@@ -19,10 +19,10 @@ $user_query = "SELECT u_openid, device_id, source, a_access, p_access, a_openid 
 $query_result = mysqli_query($mysql_link, $user_query);
 
 $result = mysqli_fetch_assoc($query_result);
-do{
+while(!empty($result)) {
 	$array_result[] = $result;
 	$result = mysqli_fetch_assoc($query_result);
-}while(!empty($result));
+};
 
 //output result
 exit(json_encode($array_result));

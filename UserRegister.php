@@ -2,9 +2,9 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
-$phone = @$_GET['phone'] ? $_GET['phone'] : '';
-$imgUrl = @$_GET['imgUrl'] ? $_GET['imgUrl'] : '';
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
+$phone = @$_GET['phone'] ? $_GET['phone'] : exit(json_encode($error));
+$imgUrl = @$_GET['imgUrl'] ? $_GET['imgUrl'] : exit(json_encode($error));
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
 if($mysql_link) {
@@ -18,12 +18,11 @@ if($mysql_link) {
 //main function execute
 $user_query = "INSERT INTO user(u_openid, u_phone, u_img) values('$openID', '$phone', '$imgUrl');";
 $query_result = mysqli_query($mysql_link, $user_query);
-if($query_result == FALSE) {
-	$result = array('result' => '0');
+$insert_team = "INSERT INTO device_group(u_openid, team, team_name) VALUES('$openID', 1, 'GreatTeam');";
+$insert_query = mysqli_query($mysql_link, $insert_team);
+if($insert_query == FALSE) {
+	exit(json_encode($error));
 } else {
-	$result = array('result' => '1');
+	exit(json_encode($ok));
 }
-
-//output result
-exit(json_encode($result));
 ?>

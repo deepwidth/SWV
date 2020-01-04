@@ -2,9 +2,9 @@
 
 @require_once 'config.php';
 //get params
-$aPassword = @$_GET['apassword'] ? $_GET['apassword'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
+$aPassword = @$_GET['apassword'] ? $_GET['apassword'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
 
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
@@ -23,12 +23,12 @@ $result = mysqli_fetch_assoc($query_result);
 
 if($result['access_ctrl'] == 1) {
 	if($result['adm_openid'] != $openID) {
-		$array_result = array('result' => '2');
+		$array_result = $no;
 	} else {
 		if($result['c_pass'] == $aPassword) {
-			$array_result = array('result' => '1');
+			$array_result = $ok;
 		} else {
-			$array_result = array('result' => '0');
+			$array_result = $error;
 		}
 	}
 } else {
@@ -39,17 +39,17 @@ if($result['access_ctrl'] == 1) {
 		$query_device = mysqli_query($mysql_link, $alter_device);
 
 		if($query_user_device == FALSE || $query_device == FALSE) {
-			$array_result = array('result' => '3');
+			$array_result = $no_User;
 		} else {
 			@require 'getPhone.php';
-			$array_result = array('result' => '1');
+			$array_result = $ok;
 			$log = "$u_phone" . '已成为此设备的管理员;';
 			$time = date('Y-m-d H:i:s');
 			$insert_log = "INSERT INTO user_log VALUES('$device_id', 5, '$log', '$time');";
 			mysqli_query($mysql_link, $insert_log);
 		}
 	} else {
-		$array_result = array('result' => '0');
+		$array_result = $error;
 	}
 }
 

@@ -2,10 +2,10 @@
 
 @require_once 'config.php';
 //get params
-$a_openID = @$_GET['a_openID'] ? $_GET['a_openID'] : '';
-$phone = @$_GET['phone'] ? $_GET['phone'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
-$type = (strlen(@$_GET['type']) == 1) ? $_GET['type'] : '';
+$a_openID = @$_GET['a_openID'] ? $_GET['a_openID'] : exit(json_encode($error));
+$phone = @$_GET['phone'] ? $_GET['phone'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
+$type = (strlen(@$_GET['type']) == 1) ? $_GET['type'] : exit(json_encode($error));
 
 
 //mysql link
@@ -17,10 +17,6 @@ if($mysql_link) {
     //echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
 	exit;
 }
-$array_nouser = array('result' => '3');
-$array_no = array('result' => '2');
-$array_ok = array('result' => '1');
-$array_error = array('result' => '0');
 //main function execute
 if($type == 1) {
 	$get_admin = "SELECT adm_openid FROM device WHERE device_id = '$device_id';";
@@ -28,10 +24,10 @@ if($type == 1) {
 	$result = mysqli_fetch_assoc($get_admin_query);
 	if(!empty($result)) {
 		if($result['adm_openid'] != $a_openID) {
-			exit(json_encode($array_no));
+			exit(json_encode($no_User));
 		}
 	} else {
-		exit(json_encode($array_no));
+		exit(json_encode($no_User));
 	}
 }
 
@@ -39,7 +35,7 @@ $check_a_user = "SELECT u_openid FROM user WHERE u_phone = '$phone';";
 $check_a_query = mysqli_query($mysql_link, $check_a_user);
 $check_result = mysqli_fetch_assoc($check_a_query);
 if(empty($check_result)) {
-	exit(json_encode($array_nouser));
+	exit(json_encode($no_User));
 } else {
 	$u_openID = $check_result['u_openid'];
 }
@@ -67,10 +63,8 @@ if($update_string_query != FALSE) {
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 3, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);
-	exit(json_encode($array_ok));
+	exit(json_encode($ok));
 } else {
-	exit(json_encode($array_error));
+	exit(json_encode($error));
 }
-//output result
-exit(json_encode($array_result));
 ?>

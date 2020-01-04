@@ -2,9 +2,9 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
-$source = (strlen(@$_GET['source']) == 1) ? $_GET['source'] : '';
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
+$source = (strlen(@$_GET['source']) == 1) ? $_GET['source'] : exit(json_encode($error));
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
 if($mysql_link) {
@@ -20,14 +20,14 @@ if($source == 2) {
 	if(@$_GET['a_openID'] && @$_GET['a_access']) {
 		$a_openID = $_GET['a_openID'];
 		$a_access = $_GET['a_access'];
+		@require_once 'getPhone.php';
 		$access_string = ($a_access == 0) ? "访问权限" : "访问和控制权限";
-		$log = "$a_openID".'向'."$openID".'授予'."$access_string";
+		$log = "$a_phone".'向'."$u_phone".'授予'."$access_string";
 		$time = date('Y-m-d H:i:s');
 		$change_log = "INSERT INTO user_log VALUES('$device_id', 3, '$log', '$time');";
 		$query_log = mysqli_query($mysql_link, $change_log);
 	} else {
-		$array_result = array( 'result' => '0');
-		exit(json_encode($array_result));
+		exit(json_encode($error));
 	}
 } else {
 	$a_openID = '';
@@ -42,17 +42,15 @@ if($get_record_query -> num_rows == 0) {
 	if($source == 2 && @$_GET['a_openID'] && @$GET['a_access']) {
 		$user_query = "UPDATE user_device SET source = $source, a_access = $a_access, a_openid = '$a_openID' WHERE device_id = '$device_id' AND u_openid = '$openID';";
 	} else {
-		$array_result = array('resutl' => '1');
-		exit(json_encode($array_result));
+		exit(json_encode($ok));
 	}
 }
 $query_result = mysqli_query($mysql_link, $user_query);
 if($query_result == FALSE) {
-	$result = array('result' => '0');
+	exit(json_encode($error));
 } else {
-	$result = array('result' => '1');
+	exit(json_encode($ok));
 }
 
 //output result
-exit(json_encode($result));
 ?>

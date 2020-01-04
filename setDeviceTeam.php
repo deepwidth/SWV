@@ -2,10 +2,10 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
-$team = @$_GET['team'] ? $_GET['team'] : '';
-$team_name = @$_GET['team_name'] ? $_GET['team_name'] : '';
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
+$team = @$_GET['team'] ? $_GET['team'] : exit(json_encode($error));
+$team_name = @$_GET['team_name'] ? $_GET['team_name'] : exit(json_encode($error));
 
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
@@ -29,12 +29,8 @@ if($get_team_result->num_rows == 0) {
 $update_team_result = mysqli_query($mysql_link, $update_team);
 $update_team_name_result = mysqli_query($mysql_link, $update_team_name);
 if($update_team_result == FALSE || $update_team_name_result == FALSE) {
-	$array_result = array('result' => '0');
-	var_dump(mysqli_error($mysql_link));
+	exit(json_encode($error));
 } else {
-	$array_result = array('result' => '1');
+	exit(json_encode($ok));
 }
-
-//output result
-exit(json_encode($array_result));
 ?>

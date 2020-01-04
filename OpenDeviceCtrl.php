@@ -2,9 +2,9 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
-$type = @(strlen($_GET['type']) >= 1) ? $_GET['type'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
+$type = @(strlen($_GET['type']) >= 1) ? $_GET['type'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
 
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
@@ -24,14 +24,12 @@ $check_user_query = mysqli_query($mysql_link, $check_user);
 //var_dump($check_user_query);
 $check_result = mysqli_fetch_assoc($check_user_query);
 if($check_user_query -> num_rows == 0) {
-	$array_result = array('result' => '2');
-	exit(json_encode($array_result));
+	exit(json_encode($no));
 }
 $check_adm_result = mysqli_fetch_assoc($check_adm_query);
 if($check_adm_result["access_ctrl"] == 1) {
     if($check_result['p_access'] == 0 && $check_result['a_access'] == 0) {
-        $array_result = array('result' => '2');
-        exit(json_encode($array_result));
+        exit(json_encode($no));
     }
 }
 
@@ -39,7 +37,7 @@ $open_device = "UPDATE device_ctrl SET open_ctrl = $type WHERE device_id = '$dev
 $query_result = mysqli_query($mysql_link, $open_device);
 $change_state = "UPDATE device_state SET state = $type WHERE device_id = '$device_id';";
 $change_state_query = mysqli_query($mysql_link, $change_state);
-$array_result = ($query_result == FALSE) ? array('result' => '0') : array('result' => '1');
+$array_result = ($query_result == FALSE) ? $error : $ok;
 if($query_result) {
 	switch($type)
 	{

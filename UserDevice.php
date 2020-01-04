@@ -2,8 +2,8 @@
 
 @require_once 'config.php';
 //get params
-$openID = @$_GET['openID'] ? $_GET['openID'] : '';
-$device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
+$openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
+$device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
 //mysql link
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
 if($mysql_link) {
@@ -29,7 +29,8 @@ $user_query = "SELECT device.device_id, serial_num, connect_state, type, name, s
 				AND device_info.device_id = device.device_id;";
 $query_result = mysqli_query($mysql_link, $user_query);
 $result = mysqli_fetch_assoc($query_result);
-do{
+
+while(!empty($result)) {
 	$array_result = array(
 		'device_id' => $result['device_id'],
 		'serial_num' => $result['serial_num'],
@@ -51,7 +52,7 @@ do{
 		'accuracy' => $result['accuracy']
 	);
 	$result = mysqli_fetch_assoc($query_result);
-}while(!empty($result));
+}
 
 //output result
 exit(json_encode($array_result));
