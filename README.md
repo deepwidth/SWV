@@ -14,14 +14,12 @@
 > https://swv.wuwz.net/UserRegister?openID=12485d8f45d&phone=18014711325&imgUrl=https://zkk.me/favicon.png
 
 #### 参数
-> 
-- openID:用户微信账户openid
+> - openID:用户微信账户openid
 - phone:用户电话
 - imgUrl:用户头像地址
 
 #### 返回结果
-> 
-- result: 0(失败) / 1(成功)
+> - result: 0(失败) / 1(成功)
 
 ------------
 
@@ -32,8 +30,7 @@
 > https://swv.wuwz.net/UserLogin?openID=12485d8f45d
 
 #### 参数
-> 
-- openID:用户账户ID
+> - openID:用户账户ID
 
 #### 返回结果
 > 查询到此用户（登录成功）
@@ -54,8 +51,7 @@
 > https://swv.wuwz.net/addDevice?device_id=100001&openID=12485d8f45d&source=0
 
 #### 参数
-> 
-- device_id:添加的设备ID
+> - device_id:添加的设备ID
 - openID:添加设备的用户ID
 - source:添加设备的来源（0：扫码 1：输入序列号 2：其他用户授权）
 - a_openID(可选):授权者账户ID
@@ -63,25 +59,22 @@
 
 注：当source值为2时需要添加`a_openID`和`a_access`字段，其值为授权者的账户ID和授权权限类型
 
-####返回结果
-> 
-- result:0（失败）/1(成功)
+#### 返回结果
+> - result:0（失败）/1(成功)
 
 ------------
 
 ### URL/delDevice
 此接口在用户删除自己拥有的某个设备时调用
-####使用样例
+#### 使用样例
 > https://swv.wuwz.net/delDevice?openID=100000000152&device_id=100002
 
 #### 参数
-> 
-- openID:用户账户ID
+> - openID:用户账户ID
 - device_id:设备ID
 
 #### 返回结果
-> 
-- result:0(失败) / 1(成功)
+> - result:0(失败) / 1(成功)
 
 ------------
 
@@ -99,31 +92,27 @@
 > https://swv.wuwz.net/startAccessCtrl?apassword=123456&device_id=100001&openID=12485d8f45
 
 #### 参数
-> 
-- apassword:用户输入的访问控制密码
+> - apassword:用户输入的访问控制密码
 - device_id:设备ID
 - openID:用户账户ID
 
 #### 返回结果
-> 
-- result:0(密码错误)/1（操作成功，即获得此设备的管理员身份）/2（操作失败，此设备已有管理员）/3(未找到设备或用户)
+> - result:0(密码错误)/1（操作成功，即获得此设备的管理员身份）/2（操作失败，此设备已有管理员）/3(未找到设备或用户)
 
 ------------
 
-###URL/getAccessCtrl
+### URL/getAccessCtrl
 此接口在用户尝试获取设备的控制权限时调用（一个设备同时只能由一个管理员，但是可以有很多用户拥有其控制权限）
 #### 使用样例
 > https://swv.wuwz.net/getAccessCtrl?cpassword=123456&device_id=100001&openID=100000000151
 
 #### 参数
-> 
-- cpassword:用户输入的访问控制密码
+> - cpassword:用户输入的访问控制密码
 - device_id:设备ID
 - openID:用户账户ID
 
 #### 返回结果
-> 
-- result:0（失败）/1（成功）
+> - result:0（失败）/1（成功）
 
 ------------
 
@@ -133,15 +122,13 @@
 > https://swv.wuwz.net/setDeviceTeam?openID=100000000151&device_id=100001&team=1&team_name=highTeam
 
 #### 参数
-> 
-- openID:用户ID
+> - openID:用户ID
 - device_id:设备ID
 - team:分组号
 - team_name:分组名称
 
 #### 返回结果
-> 
-- result:0（失败）/1（成功）
+> - result:0（失败）/1（成功）
 
 ------------
 
@@ -151,8 +138,7 @@
 > https://swv.wuwz.net/UserDevices?openID=100000000151
 
 #### 参数
-> 
-- openID:用户ID
+> - openID:用户ID
 
 #### 返回结果
 返回结果是一个数组，数组的每一个元素都是一个设备的信息。如下是有3个设备的数组，表示此用户有三个设备。
@@ -225,8 +211,7 @@
 > https://swv.wuwz.net/UserDevice?openID=100000000152&device_id=100002
 
 #### 参数
-> 
-- openID:用户账户ID
+> - openID:用户账户ID
 - device_id:要获取的设备ID
 
 #### 返回结果
@@ -263,14 +248,12 @@
 > https://swv.wuwz.net/OpenDeviceCtrl?openID=100000000152&device_id=100001&type=2
 
 #### 参数
-> 
-- openID:操作者ID
+> - openID:操作者ID
 - device_id:设备ID
 - type:控制类型（0：停止/1：关闭/2：打开/3：ESD）
 
-####返回结果
-> 
-- result:0（失败）/1（成功）/2（无操作权限）
+#### 返回结果
+> - result:0（失败）/1（成功）/2（无操作权限）
 
 ------------
 
@@ -280,14 +263,12 @@
 > https://swv.wuwz.net/OpenDegreeCtrl?degree=236&openID=100000000152&device_id=100001
 
 #### 参数
-> 
-- openID:操作者ID
+> - openID:操作者ID
 - device_id:设备ID
 - degree:阀门开度位置，为23.6%
 
-####返回结果
-> 
-- result:0（失败）/1（成功）/2（无操作权限）
+#### 返回结果
+> - result:0（失败）/1（成功）/2（无操作权限）
 
 ------------
 
@@ -297,14 +278,12 @@
 > https://swv.wuwz.net/setCtrlType?type=1&openID=100000000152&device_id=100001
 
 #### 参数
-> 
-- type:开关控制方式（1：高字节/2：低字节）
+> - type:开关控制方式（1：高字节/2：低字节）
 - openID：操作者ID
 - device_id：设备ID
 
 #### 返回结果
-> 
-- result:0（失败）/1（成功）/2（无操作权限）
+> - result:0（失败）/1（成功）/2（无操作权限）
 
 ------------
 
@@ -314,14 +293,12 @@
 > https://swv.wuwz.net/setAccuracy?accuracy=145&device_id=100001&openID=100000000152
 
 #### 参数
-> 
-- accuracy:精度（5-100，前端加以判断）
+> - accuracy:精度（5-100，前端加以判断）
 - device_id:设备ID
 - openID:操作者ID
 
 #### 返回结果
-> 
-- result:0（失败）/1（成功）/2（无操作权限）
+> - result:0（失败）/1（成功）/2（无操作权限）
 
 ------------
 
@@ -331,15 +308,13 @@
 > https://swv.wuwz.net/UpdateDeviceName?remark=Good Valve&show_name=Valve&device_id=100001&openID=100000000152
 
 #### 参数
-> 
-- show_name:设备名称（Value）
+> - show_name:设备名称（Value）
 - remark:设备备注(Good Valve)
 - device_id:设备ID
 - openID:操作者ID
 
 #### 返回结果
-> 
-- result:0（失败）/1（成功）/2（无操作权限）
+> - result:0（失败）/1（成功）/2（无操作权限）
 
 ------------
 
@@ -349,14 +324,12 @@
 > https://swv.wuwz.net/updateAccessCtrlPassword?cPassword=123456789&device_id=100003&openID=100000000152
 
 #### 参数
-> 
-- cPassword:新控制密码
+> - cPassword:新控制密码
 - device_id:设备ID
 - openID:操作者ID
 
 #### 返回结果
-> 
-- result:0（失败）/1（成功）/2（无操作权限）
+> - result:0（失败）/1（成功）/2（无操作权限）
 
 ------------
 
@@ -366,80 +339,146 @@
 > https://swv.wuwz.net/DeviceHistoryInfo?device_id=100001
 
 #### 参数
-> 
-- device_id:设备ID
+> - device_id:设备ID
 
 #### 返回结果
 返回结果是个数组，其中每个元素的字段含义如下
-> 
-- device_id:设备ID
+> - device_id:设备ID
 - type:事件种类(阀门访问(0)，阀门控制(1)，阀门参数设置(2)，用户授权(3)，控制密码修改(4)，开启管理员权限（5），修改阀门名称（6))
 - log:事件内容（返回结果为Unicode编码，需要解码以正常显示）
 - time:事件时间
 
 示例：
 ```json
-[{
-	"device_id": "100001",
-	"type": "3",
-	"log": "访问和控制权限",
-	"time": "2019-12-22 14:52:06"
-}, {
-	"device_id": "100001",
-	"type": "3",
-	"log": "12485d8f45d向100000000152授予访问和控制权限",
-	"time": "2019-12-22 14:55:41"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将100001关闭",
-	"time": "2019-12-23 19:51:47"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001打开",
-	"time": "2019-12-23 19:52:43"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001置为ESD",
-	"time": "2019-12-23 19:53:01"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001进行了未知操作，操作码为4",
-	"time": "2019-12-23 19:53:04"
-}, {
-	"device_id": "100001",
-	"type": "2",
-	"log": "100000000152已将设备100001设备开度设置到了560",
-	"time": "2019-12-23 20:10:14"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001置为ESD",
-	"time": "2019-12-23 20:13:55"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001开关控制方式设置为高字节",
-	"time": "2019-12-23 23:55:11"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001开关控制方式设置为高字节",
-	"time": "2019-12-24 00:00:10"
-}, {
-	"device_id": "100001",
-	"type": "1",
-	"log": "100000000152已将设备100001精度设置到了145",
-	"time": "2019-12-24 15:24:02"
-}, {
-	"device_id": "100001",
-	"type": "6",
-	"log": "100000000152修改了设备100001的名称和备注",
-	"time": "2019-12-24 15:39:42"
-}]
+{
+	"2020-01-04": [{
+		"device_id": "100005",
+		"type": "7",
+		"log": "18014711358删除了此设备",
+		"time": "19:25:11"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "删除了此设备",
+		"time": "22:30:17"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "删除了此设备",
+		"time": "22:30:22"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "删除了此设备",
+		"time": "22:30:38"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "13970501975删除了此设备",
+		"time": "22:36:42"
+	}, {
+		"device_id": "100005",
+		"type": "6",
+		"log": "13970501975修改了此设备的名称和备注",
+		"time": "23:54:58"
+	}, {
+		"device_id": "100005",
+		"type": "2",
+		"log": "13970501975已将此设备开度设置到了25",
+		"time": "23:55:36"
+	}, {
+		"device_id": "100005",
+		"type": "1",
+		"log": "13970501975已将此设备打开",
+		"time": "23:55:38"
+	}, {
+		"device_id": "100005",
+		"type": "2",
+		"log": "13970501975已将此设备开度设置到了30",
+		"time": "23:55:44"
+	}, {
+		"device_id": "100005",
+		"type": "1",
+		"log": "13970501975已将此设备精度设置到了60",
+		"time": "23:55:51"
+	}, {
+		"device_id": "100005",
+		"type": "1",
+		"log": "13970501975已将此设备开关控制方式设置为高字节",
+		"time": "23:55:53"
+	}, {
+		"device_id": "100005",
+		"type": "5",
+		"log": "13970501975已成为此设备的管理员;",
+		"time": "23:56:10"
+	}, {
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已经删除了13255671258对于此设备的所有权限",
+		"time": "23:58:46"
+	}, {
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已经删除了13258741565对于此设备的所有权限",
+		"time": "23:58:49"
+	}],
+	"2020-01-05": [{
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已将设备100005访问控制权限授权给了",
+		"time": "00:05:33"
+	}, {
+		"device_id": "100005",
+		"type": "1",
+		"log": "15301027593已将此设备停止",
+		"time": "00:11:50"
+	}, {
+		"device_id": "100005",
+		"type": "1",
+		"log": "15301027593已将此设备打开",
+		"time": "00:13:29"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "15301027593删除了此设备",
+		"time": "00:33:45"
+	}, {
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已将此设备访问控制权限授权给了",
+		"time": "00:37:04"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "15301027593删除了此设备",
+		"time": "00:38:15"
+	}, {
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已将此设备访问控制权限授权给了",
+		"time": "00:38:37"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "15301027593删除了此设备",
+		"time": "00:39:09"
+	}, {
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已将此设备访问控制权限授权给了",
+		"time": "00:39:21"
+	}, {
+		"device_id": "100005",
+		"type": "7",
+		"log": "15301027593删除了此设备",
+		"time": "00:40:27"
+	}, {
+		"device_id": "100005",
+		"type": "3",
+		"log": "13970501975已将此设备访问控制权限授权给了15301027593",
+		"time": "00:40:31"
+	}]
+}
 ```
 
 ------------
@@ -450,15 +489,12 @@
 > https://swv.wuwz.net/addAccessCtrlUsers?a_openID=100000000152&phone=13825489635&device_id=100002&type=1
 
 #### 参数
-> 
-- a_openID:授权者ID
-- phone:被授权用户电话号
-- device_id:设备ID
-- type:授权类型（0：仅访问/1：访问加控制）
-
+> - a_openID:授权者ID
+> - phone:被授权用户电话号
+> - device_id:设备ID
+> - type:授权类型（0：仅访问/1：访问加控制）
 #### 返回结果
-> 
-- result: 0:失败/1：成功/2：无权限/3:无此用户
+> - result: 0:失败/1：成功/2：无权限/3:无此用户
 
 ------------
 
@@ -468,33 +504,65 @@
 > https://swv.wuwz.net/getAccessCtrlUsers?device_id=100002
 
 #### 参数
-> 
-- device_id:设备ID
+> - device_id:设备ID
 
 #### 返回结果
-返回结果是一个数组，每一个元素表示了一个拥有此设备的账户及所拥有的权限详情。（`p_access`为1表示有密码权限，`a_access`为0表示被授权访问权限，为1表示被授权控制权限，`a_openid`表示授权者账户）
+返回结果是一个数组，每一个元素表示了一个拥有此设备的账户及所拥有的权限详情。（`p_access`为1表示有密码权限，`a_access`为0表示被授权访问权限，为1表示被授权控制权限，`a_openid`表示授权者账户，`u_phone`表示被授权者电话，`a_phone`是授权者电话）
 ```json
 [{
 	"u_openid": "100000000151",
-	"device_id": "100002",
-	"source": "2",
-	"a_access": "1",
-	"p_access": "0",
-	"a_openid": "100000000152"
+	"device_id": "100001",
+	"source": "0",
+	"a_access": "0",
+	"p_access": "1",
+	"a_openid": "",
+	"u_phone": "18014711358",
+	"a_phone": ""
 }, {
 	"u_openid": "100000000152",
-	"device_id": "100002",
-	"source": "0",
-	"a_access": "1",
-	"p_access": "0",
-	"a_openid": ""
-}, {
-	"u_openid": "12485d8f45d",
-	"device_id": "100002",
+	"device_id": "100001",
 	"source": "2",
 	"a_access": "1",
 	"p_access": "0",
-	"a_openid": "100000000152"
+	"a_openid": "12485d8f45d",
+	"u_phone": "15858741258",
+	"a_phone": "18014711325"
+}, {
+	"u_openid": "100000000161",
+	"device_id": "100001",
+	"source": "0",
+	"a_access": "0",
+	"p_access": "1",
+	"a_openid": "",
+	"u_phone": "13255671258",
+	"a_phone": ""
+}, {
+	"u_openid": "12485d8f45d",
+	"device_id": "100001",
+	"source": "1",
+	"a_access": "0",
+	"p_access": "1",
+	"a_openid": "",
+	"u_phone": "18014711325",
+	"a_phone": ""
+}, {
+	"u_openid": "odmNL5A1CdfYqHJo0plN0GvmQVbM",
+	"device_id": "100001",
+	"source": "0",
+	"a_access": "0",
+	"p_access": "1",
+	"a_openid": "",
+	"u_phone": "15189802118",
+	"a_phone": ""
+}, {
+	"u_openid": "odmNL5AMpOwsIqoJbhjj0F7FFnaU",
+	"device_id": "100001",
+	"source": "1",
+	"a_access": "0",
+	"p_access": "1",
+	"a_openid": "",
+	"u_phone": "13970501975",
+	"a_phone": ""
 }]
 ```
 
@@ -506,12 +574,9 @@
 > https://swv.wuwz.net/delAccessCtrlUsers?a_openID=100000000152&device_id=100002&openID=100000000151
 
 #### 参数
-> 
-- a_openID:操作者ID
+> - a_openID:操作者ID
 - device_id:设备ID
 - openID:被删除权限的用户
 
 #### 返回结果
-> 
-
-- result:0(失败)/1（成功）/2（无权限，不是管理员）
+> - result:0(失败)/1（成功）/2（无权限，不是管理员）
