@@ -3,7 +3,7 @@
 @require_once 'config.php';
 //get params
 $a_openID = @$_GET['a_openID'] ? $_GET['a_openID'] : '';
-$u_openID = @$_GET['u_openID'] ? $_GET['u_openID'] : '';
+$phone = @$_GET['phone'] ? $_GET['phone'] : '';
 $device_id = @$_GET['device_id'] ? $_GET['device_id'] : '';
 $type = (strlen(@$_GET['type']) == 1) ? $_GET['type'] : '';
 
@@ -17,7 +17,7 @@ if($mysql_link) {
     //echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
 	exit;
 }
-
+$array_nouser = array('result' => '3');
 $array_no = array('result' => '2');
 $array_ok = array('result' => '1');
 $array_error = array('result' => '0');
@@ -33,6 +33,15 @@ if($type == 1) {
 	} else {
 		exit(json_encode($array_no));
 	}
+}
+
+$check_a_user = "SELECT u_openid FROM user WHERE u_phone = '$phone';";
+$check_a_query = mysqli_query($mysql_link, $check_a_user);
+$check_result = mysqli_fetch_assoc($check_a_query);
+if(empty($check_result)) {
+	exit(json_encode($array_nouser));
+} else {
+	$u_openID = $check_result['u_openid'];
 }
 
 $check_log = "SELECT * FROM user_device WHERE device_id = '$device_id' AND u_openid = '$u_openID';";
@@ -51,9 +60,10 @@ if(!empty($result)) {
 }
 
 if($update_string_query != FALSE) {
+	@require_once 'getPhone.php';
 	$quanxian = ($type == 1) ? "访问控制" : "访问";
-	$content = $quanxian . '权限授权给了' . $u_openID;
-	$log = $a_openID . '已将设备' . $device_id . $content;
+	$content = $quanxian . '权限授权给了' . $u_phone;
+	$log = $a_phone . '已将设备' . $device_id . $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 3, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

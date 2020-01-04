@@ -33,8 +33,9 @@ if($query_result) {
 	$array_result = ($update_query == FALSE) ? array('result' => '0') : array('result' => '1');
 }
 if($query_result) {
+	@require 'getPhone.php';
 	$content = '控制密码';
-	$log = $openID . '修改了设备' . $device_id . $content;
+	$log = $u_phone . '修改了此设备' . $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 4, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

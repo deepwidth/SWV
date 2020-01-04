@@ -41,8 +41,9 @@ $update_accuracy = "UPDATE device_info SET accuracy = $accuracy WHERE device_id 
 $update_accuracy_query = mysqli_query($mysql_link, $update_accuracy);
 $array_result = ($query_result == FALSE || $update_accuracy_query == FALSE) ? array('result' => '0') : array('result' => '1');
 if($query_result) {
+	@require_once 'getPhone.php';
 	$content = '精度设置到了' . $accuracy;
-	$log = $openID . '已将设备' . $device_id . $content;
+	$log = $u_phone . '已将此设备' . $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 1, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

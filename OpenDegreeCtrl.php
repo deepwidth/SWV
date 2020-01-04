@@ -43,8 +43,9 @@ $change_open = "UPDATE device_info SET position = $degree WHERE device_id = '$de
 $change_open_query = mysqli_query($mysql_link, $change_open);
 $array_result = ($query_result == FALSE || $query_degree == FALSE || $change_open_query == FALSE) ? array('result' => '0') : array('result' => '1');
 if($query_result) {
-	$content = '设备开度设置到了' . $degree;
-	$log = $openID . '已将设备' . $device_id . $content;
+	@require_once 'getPhone.php';
+	$content = '开度设置到了' . $degree;
+	$log = $u_phone . '已将此设备' . $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 2, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

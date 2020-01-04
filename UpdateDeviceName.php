@@ -40,8 +40,9 @@ $open_device = "UPDATE device SET remark = '$remark', show_name = '$show_name' W
 $query_result = mysqli_query($mysql_link, $open_device);
 $array_result = ($query_result == FALSE) ? array('result' => '0') : array('result' => '1');
 if($query_result) {
+	@require 'getPhone.php';
 	$content = '的名称和备注';
-	$log = $openID . '修改了设备' . $device_id . $content;
+	$log = $u_phone . '修改了此设备' . $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 6, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

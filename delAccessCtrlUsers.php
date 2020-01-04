@@ -17,8 +17,13 @@ if($mysql_link) {
 
 $array_ok = array('result' => '1');
 $array_no = array('result' => '2');
+$array_admin = array('result' => '3');
 $array_error = array('result' => '0');
 //main function execute
+if($openID == $a_openID) {
+	exit(json_encode($array_admin));
+}
+
 $user_query = "SELECT adm_openid FROM device WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $user_query);
 $result = mysqli_fetch_assoc($query_result);
@@ -29,7 +34,8 @@ if(empty($result) || $result['adm_openid'] != $a_openID) {
 	$del = "DELETE FROM user_device WHERE device_id = '$device_id' AND u_openid = '$openID';";
 	$del_query = mysqli_query($mysql_link, $del);
 	if($del) {
-		$log = $a_openID."已经删除了".$openID."对于设备".$device_id."的所有权限";
+		@require 'getPhone.php';
+		$log = $a_phone."已经删除了".$u_phone."对于此设备的所有权限";
 		$time = date('Y-m-d H:i:s');
 		$insert_log = "INSERT INTO user_log VALUES('$device_id', 3, '$log', '$time');";
 		mysqli_query($mysql_link, $insert_log);

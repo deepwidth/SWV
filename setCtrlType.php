@@ -38,8 +38,9 @@ $open_device = "UPDATE device_ctrl SET ctrl_type = $type WHERE device_id = '$dev
 $query_result = mysqli_query($mysql_link, $open_device);
 $array_result = ($query_result == FALSE) ? array('result' => '0') : array('result' => '1');
 if($query_result) {
+	@require 'getPhone.php';
 	$content = ($type == 1) ? "高字节" : "低字节";
-	$log = $openID . '已将设备' . $device_id .'开关控制方式设置为'. $content;
+	$log = $u_phone . '已将此设备' .'开关控制方式设置为'. $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 1, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);
