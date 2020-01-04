@@ -58,8 +58,8 @@ if(!empty($result)) {
 if($update_string_query != FALSE) {
 	@require_once 'getPhone.php';
 	$quanxian = ($type == 1) ? "访问控制" : "访问";
-	$content = $quanxian . '权限授权给了' . $u_phone;
-	$log = $a_phone . '已将设备' . $device_id . $content;
+	$content = $quanxian . '权限授权给了' . $phone;
+	$log = $a_phone . '已将此设备' . $content;
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 3, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

@@ -17,13 +17,23 @@ if($mysql_link) {
 //main function execute
 $user_query = "SELECT u_openid, device_id, source, a_access, p_access, a_openid FROM user_device WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $user_query);
-
 $result = mysqli_fetch_assoc($query_result);
 while(!empty($result)) {
-	$array_result[] = $result;
+	$openID = $result['u_openid'];
+	$a_openID = $result['a_openid'];
+	include 'getPhone.php';
+	$array_result[] = array(
+		'u_openid' => $result['u_openid'],
+		'device_id' => $result['device_id'],
+		'source' => $result['source'],
+		'a_access' => $result['a_access'],
+		'p_access' => $result['p_access'],
+		'a_openid' => $result['a_openid'],
+		'u_phone' => $u_phone,
+		'a_phone' => $a_phone
+	);
 	$result = mysqli_fetch_assoc($query_result);
-};
-
+}
 //output result
 exit(json_encode($array_result));
 ?>
