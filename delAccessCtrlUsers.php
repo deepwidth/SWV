@@ -16,9 +16,6 @@ if($mysql_link) {
 }
 
 //main function execute
-if($openID == $a_openID) {
-	exit(json_encode($no_User));
-}
 
 $user_query = "SELECT adm_openid FROM device WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $user_query);
@@ -27,6 +24,9 @@ $result = mysqli_fetch_assoc($query_result);
 if(empty($result) || $result['adm_openid'] != $a_openID) {
 	exit(json_encode($no));
 } else {
+	if($openID == $a_openID) {
+    	exit(json_encode($no_User));
+	}
 	$del = "DELETE FROM user_device WHERE device_id = '$device_id' AND u_openid = '$openID';";
 	$del_query = mysqli_query($mysql_link, $del);
 	if($del) {
