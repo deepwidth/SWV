@@ -35,17 +35,21 @@ if($check_adm_result["access_ctrl"] == 1) {
 if($type == 1 || $type == 2) {
 	$degree = ($type == 1) ? '0' : '100';
 	$open_device = "UPDATE device_ctrl SET position_ctrl = $degree WHERE device_id = '$device_id';";
-	$query_result = mysqli_query($mysql_link, $open_device);
+	$open_result = mysqli_query($mysql_link, $open_device);
 	$degree_ctrl = "UPDATE device_state SET position = $degree WHERE device_id = '$device_id';";
 	$query_degree = mysqli_query($mysql_link, $degree_ctrl);
 	$change_open = "UPDATE device_info SET position = $degree WHERE device_id = '$device_id';";
 	$change_open_query = mysqli_query($mysql_link, $change_open);	
+} else {
+	$open_result = TRUE;
+	$query_degree = TRUE;
+	$change_open_query = TRUE;
 }
 $open_device = "UPDATE device_ctrl SET open_ctrl = $type WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $open_device);
 $change_state = "UPDATE device_state SET state = $type WHERE device_id = '$device_id';";
 $change_state_query = mysqli_query($mysql_link, $change_state);
-$array_result = ($query_result == FALSE) ? $error : $ok;
+$array_result = ($query_result && $change_state_query && $open_result && $query_degree && $change_open_query) ? $ok : $error;
 if($query_result) {
 	switch($type)
 	{
