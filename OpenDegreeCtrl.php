@@ -17,11 +17,18 @@ if($mysql_link) {
 }
 
 //main function execute
+//检查阀门是否开启
+$check_open = "SELECT open_ctrl FROM device_ctrl WHERE device_id = '$device_id';";
+$check_open_query = mysqli_query($mysql_link, $check_open);
+$open_result = mysqli_fetch_assoc($check_open_query);
+if(!empty($open_result) && $open_result['open_ctrl'] == 0) {
+	exit(json_encode($no_User));
+}
+//检查阀门是否启用访问控制权限
 $check_adm = "SELECT access_ctrl FROM device WHERE device_id = '$device_id';";
 $check_adm_query = mysqli_query($mysql_link, $check_adm);
 $check_user = "SELECT a_access, p_access FROM user_device WHERE u_openid = '$openID' AND device_id = '$device_id';";
 $check_user_query = mysqli_query($mysql_link, $check_user);
-//var_dump($check_user_query);
 $check_result = mysqli_fetch_assoc($check_user_query);
 if($check_user_query -> num_rows == 0) {
 	exit(json_encode($no));
