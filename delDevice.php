@@ -17,7 +17,7 @@ if($mysql_link) {
 
 //main function execute
 @include 'getPhone.php';
-$get_admin = "SELECT adm_openid FROM device WHERE device_id = '$openID';";
+$get_admin = "SELECT adm_openid FROM device WHERE device_id = '$device_id';";
 $get_admin_query = mysqli_query($mysql_link, $get_admin);
 $admin_result = mysqli_fetch_assoc($get_admin_query);
 if($admin_result['adm_openid'] == $openID) {
