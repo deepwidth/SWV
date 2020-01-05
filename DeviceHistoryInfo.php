@@ -15,7 +15,7 @@ if($mysql_link) {
 }
 
 //main function execute
-$query_history = "SELECT * FROM user_log WHERE device_id = '$device_id';";
+$query_history = "SELECT * FROM user_log WHERE device_id = '$device_id' ORDER BY time DESC;";
 $query_result = mysqli_query($mysql_link, $query_history);
 $result = mysqli_fetch_assoc($query_result);
 while(!empty($result)) {
