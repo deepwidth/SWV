@@ -20,7 +20,7 @@ if($source == 2) {
 	if(@$_GET['a_openID'] && @$_GET['a_access']) {
 		$a_openID = $_GET['a_openID'];
 		$a_access = $_GET['a_access'];
-		@require_once 'getPhone.php';
+		@include 'getPhone.php';
 		$access_string = ($a_access == 0) ? "访问权限" : "访问和控制权限";
 		$log = "$a_phone".'向'."$u_phone".'授予'."$access_string";
 		$time = date('Y-m-d H:i:s');

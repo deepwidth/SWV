@@ -30,7 +30,7 @@ if(empty($result) || $result['adm_openid'] != $a_openID) {
 	$del = "DELETE FROM user_device WHERE device_id = '$device_id' AND u_openid = '$openID';";
 	$del_query = mysqli_query($mysql_link, $del);
 	if($del) {
-		@require 'getPhone.php';
+		@include 'getPhone.php';
 		$log = $a_phone."已经删除了".$u_phone."对于此设备的所有权限";
 		$time = date('Y-m-d H:i:s');
 		$insert_log = "INSERT INTO user_log VALUES('$device_id', 3, '$log', '$time');";

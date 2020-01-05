@@ -20,7 +20,7 @@ $user_query = "DELETE FROM user_device WHERE u_openid = '$openID' AND device_id 
 $query_result = mysqli_query($mysql_link, $user_query);
 $array_result = ($query_result == FALSE) ? $error : $ok;
 if($query_result != FALSE) {
-	@require 'getPhone.php';
+	@include 'getPhone.php';
 	$log = $u_phone . '删除了此设备';
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 7, '$log', '$time');";

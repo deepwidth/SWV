@@ -56,7 +56,7 @@ if(!empty($result)) {
 }
 
 if($update_string_query != FALSE) {
-	@require_once 'getPhone.php';
+	@include 'getPhone.php';
 	$quanxian = ($type == 1) ? "访问控制" : "访问";
 	$content = $quanxian . '权限授权给了' . $phone;
 	$log = $a_phone . '已将此设备' . $content;

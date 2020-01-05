@@ -57,8 +57,8 @@ if($query_result) {
 			$content = "进行了未知操作，操作码为" . $type;
 			break;
 	}
-	@require_once 'getPhone.php';
-	$log = $u_phone . '已将此设备' . $content;
+	@include 'getPhone.php';
+	$log = "{$u_phone}已将此设备{$content}";
 	$time = date('Y-m-d H:i:s');
 	$insert_log = "INSERT INTO user_log VALUES('$device_id', 1, '$log', '$time');";
 	mysqli_query($mysql_link, $insert_log);

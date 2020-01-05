@@ -41,9 +41,9 @@ if($result['access_ctrl'] == 1) {
 		if($query_user_device == FALSE || $query_device == FALSE) {
 			$array_result = $no_User;
 		} else {
-			@require 'getPhone.php';
+			@include 'getPhone.php';
 			$array_result = $ok;
-			$log = "$u_phone" . '已成为此设备的管理员;';
+			$log = $u_phone . '已成为此设备的管理员;';
 			$time = date('Y-m-d H:i:s');
 			$insert_log = "INSERT INTO user_log VALUES('$device_id', 5, '$log', '$time');";
 			mysqli_query($mysql_link, $insert_log);

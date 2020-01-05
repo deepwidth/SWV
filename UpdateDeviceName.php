@@ -38,7 +38,7 @@ $open_device = "UPDATE device SET remark = '$remark', show_name = '$show_name' W
 $query_result = mysqli_query($mysql_link, $open_device);
 $array_result = ($query_result == FALSE) ? $error : $ok;
 if($query_result) {
-	@require 'getPhone.php';
+	@include 'getPhone.php';
 	$content = '的名称和备注';
 	$log = $u_phone . '修改了此设备' . $content;
 	$time = date('Y-m-d H:i:s');

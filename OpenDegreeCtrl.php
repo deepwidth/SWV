@@ -40,7 +40,7 @@ $query_degree = mysqli_query($mysql_link, $degree_ctrl);
 $change_open = "UPDATE device_info SET position = $degree WHERE device_id = '$device_id';";
 $change_open_query = mysqli_query($mysql_link, $change_open);
 if($query_result) {
-	@require_once 'getPhone.php';
+	@include 'getPhone.php';
 	$content = '开度设置到了' . $degree;
 	$log = $u_phone . '已将此设备' . $content;
 	$time = date('Y-m-d H:i:s');

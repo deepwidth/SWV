@@ -32,7 +32,7 @@ if($query_result) {
 	$array_result = ($update_query == FALSE) ? $error : $ok;
 }
 if($query_result) {
-	@require 'getPhone.php';
+	@include 'getPhone.php';
 	$content = '控制密码';
 	$log = "$u_phone" . '修改了此设备' . $content;
 	$time = date('Y-m-d H:i:s');
