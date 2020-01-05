@@ -32,7 +32,15 @@ if($check_adm_result["access_ctrl"] == 1) {
         exit(json_encode($no));
     }
 }
-
+if($type == 1 || $type == 2) {
+	$degree = ($type == 1) ? '0' : '100';
+	$open_device = "UPDATE device_ctrl SET position_ctrl = $degree WHERE device_id = '$device_id';";
+	$query_result = mysqli_query($mysql_link, $open_device);
+	$degree_ctrl = "UPDATE device_state SET position = $degree WHERE device_id = '$device_id';";
+	$query_degree = mysqli_query($mysql_link, $degree_ctrl);
+	$change_open = "UPDATE device_info SET position = $degree WHERE device_id = '$device_id';";
+	$change_open_query = mysqli_query($mysql_link, $change_open);	
+}
 $open_device = "UPDATE device_ctrl SET open_ctrl = $type WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $open_device);
 $change_state = "UPDATE device_state SET state = $type WHERE device_id = '$device_id';";
