@@ -42,7 +42,7 @@ if(empty($check_result)) {
 
 $check_log = "SELECT * FROM user_device WHERE device_id = '$device_id' AND u_openid = '$u_openID';";
 $check_log_query = mysqli_query($mysql_link, $check_log);
-$result = mysqli_fetch_assoc($query_result);
+$result = mysqli_fetch_assoc($check_log_query);
 if(!empty($result)) {
 	if($result['a_access'] == 0) {
 		$update_string = "UPDATE user_device SET a_access = $type WHERE device_id = '$device_id' AND u_openid = '$u_openID';";
