@@ -39,8 +39,9 @@ if($check_adm_result["access_ctrl"] == 1) {
 		exit(json_encode($no));
 	}
 }
-
-$open_device = "UPDATE device_ctrl SET position_ctrl = $degree WHERE device_id = '$device_id';";
+//阀门自动打开与关闭
+$type = ($degree == 0) ? 1 : 2;
+$open_device = "UPDATE device_ctrl SET position_ctrl = $degree, open_ctrl = $type WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $open_device);
 $degree_ctrl = "UPDATE device_state SET position = $degree WHERE device_id = '$device_id';";
 $query_degree = mysqli_query($mysql_link, $degree_ctrl);
