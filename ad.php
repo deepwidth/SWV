@@ -24,14 +24,13 @@
 			show_name:<input type="text" name="show_name" value="Great device"/>
 			remark:<input type="text" name="remark" value="remark"/><br/>
 		 	serial_num:<input type="text" name="serial_num" value="100001"/>
-			net_address:<input type="text" name="net_address" value="100001"/>
-			connect_state:<input type="text" name="connect_state" value="1"/>
+			net_address:<input type="text" name="net_address" value="100001"/><br/>
+			connect_state:<input type="text" name="connect_state" value="1"/><br/>
 			type:<input type="text" name="type" value="1"/><br/>
 			name:<input type="text" name="name" value="another device"/><br/>
-			imgurl:<input type="text" name="imgurl"/>
-			assem_date:<input type="text" name="assem_date" value="2019-12-21 14:45:54"/>
+			imgurl:<input type="text" name="imgurl"/><br/>
 			d_pass:<input type="text" name="d_pass" value="passwdFromMaking"><br/>
-			access_ctrl:<input type="text" name="access_ctrl" value="0"/>
+			access_ctrl:<input type="text" name="access_ctrl" value="0"/><br/>
 		    <input type="submit" value="提交"/>
 		   </form>
 		    </div>
@@ -48,10 +47,9 @@ $type = @$_GET['type'] ? $_GET['type'] : '';
 $name = @$_GET['name'] ? $_GET['name'] : '';
 $show_name = @$_GET['show_name'] ? $_GET['show_name'] : '';
 $imgurl = @$_GET['imgurl'] ? $_GET['imgurl'] : '';
-$assem_date = @$_GET['assem_date'] ? $_GET['assem_date'] : '';
 $d_pass = @$_GET['d_pass'] ? $_GET['d_pass'] : '';
 $access_ctrl = @$_GET['access_ctrl'] ? $_GET['access_ctrl'] : '';
-
+$assem_date = date('Y-m-d H:i:s');
 @require_once 'config.php';
 $mysql_link = mysqli_connect($mysql_server, $mysql_user, $mysql_password, $mysql_db_name);
 
