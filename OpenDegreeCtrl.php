@@ -3,7 +3,7 @@
 @require_once 'config.php';
 //get params
 $openID = @$_GET['openID'] ? $_GET['openID'] : exit(json_encode($error));
-$degree = @$_GET['degree'] ? $_GET['degree'] : exit(json_encode($error));
+$degree = (strlen(@$_GET['degree']) > 0) ? $_GET['degree'] : exit(json_encode($error));
 $device_id = @$_GET['device_id'] ? $_GET['device_id'] : exit(json_encode($error));
 
 //mysql link
