@@ -7,7 +7,7 @@ use SWV;
 #create tabel user
 CREATE TABLE user(
    u_openid VARCHAR(40),
-   u_phone VARCHAR(20) NOT NULL,
+   u_phone VARCHAR(20) NOT NULL UNIQUE,
    u_img VARCHAR(50),
    PRIMARY KEY (u_openid)
 )DEFAULT CHARSET=utf8;
@@ -34,6 +34,15 @@ CREATE TABLE device(
    FOREIGN KEY (adm_openid) REFERENCES user(u_openid) on update cascade
 )DEFAULT CHARSET=utf8;
 
+#create tabel device_group
+CREATE TABLE device_group(
+   u_openid VARCHAR(40) NOT NULL,
+   team int NOT NULL DEFAULT 1,
+   team_name VARCHAR(20),
+   PRIMARY KEY (u_openid, team),
+   FOREIGN KEY (u_openid) REFERENCES user(u_openid) on delete cascade on update cascade
+)DEFAULT CHARSET=utf8;
+
 #create tabel user_device
 CREATE TABLE user_device(
    u_openid VARCHAR(40) NOT NULL,
@@ -43,18 +52,6 @@ CREATE TABLE user_device(
    p_access int NOT NULL DEFAULT 0,
    a_openid VARCHAR(40),
    team int NOT NULL DEFAULT 1,
-   PRIMARY KEY (u_openid, device_id),
-   FOREIGN KEY (u_openid) REFERENCES user(u_openid) on delete cascade on update cascade,
-   FOREIGN KEY (a_openid) REFERENCES user(u_openid) on update cascade,
-   FOREIGN KEY (device_id) REFERENCES device(device_id) on delete cascade on update cascade
-)DEFAULT CHARSET=utf8;
-
-#create tabel device_group
-CREATE TABLE device_group(
-   u_openid VARCHAR(40) NOT NULL,
-   device_id VARCHAR(40) NOT NULL,
-   team int NOT NULL DEFAULT 1,
-   team_name VARCHAR(20),
    PRIMARY KEY (u_openid, device_id),
    FOREIGN KEY (u_openid) REFERENCES user(u_openid) on delete cascade on update cascade,
    FOREIGN KEY (device_id) REFERENCES device(device_id) on delete cascade on update cascade
@@ -136,3 +133,7 @@ CREATE TABLE device_info(
    PRIMARY KEY (device_id),
    FOREIGN KEY (device_id) REFERENCES device(device_id) on delete cascade on update cascade
 )DEFAULT CHARSET=utf8;
+
+
+
+
