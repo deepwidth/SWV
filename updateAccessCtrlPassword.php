@@ -24,6 +24,13 @@ if($check_result['adm_openid'] != $openID) {
 	exit(json_encode($no));
 }
 
+$check_passwd = "SELECT c_pass FROM device WHERE device_id = '$device_id';";
+$check_passwd_query = mysqli_query($mysql_link, $check_passwd);
+$result_passwd = mysqli_fetch_assoc($check_passwd_query);
+if(!empty($result_passwd) && $result_passwd['c_pass'] == $cPassword) {
+	exit(json_encode($ok));
+}
+
 $open_device = "UPDATE device SET c_pass = $cPassword  WHERE device_id = '$device_id';";
 $query_result = mysqli_query($mysql_link, $open_device);
 if($query_result) {

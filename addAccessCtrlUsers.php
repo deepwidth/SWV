@@ -24,10 +24,10 @@ if($type == 1) {
 	$result = mysqli_fetch_assoc($get_admin_query);
 	if(!empty($result)) {
 		if($result['adm_openid'] != $a_openID) {
-			exit(json_encode($no_User));
+			exit(json_encode($no));
 		}
 	} else {
-		exit(json_encode($no_User));
+		exit(json_encode($error));
 	}
 }
 
